@@ -2,17 +2,21 @@
 //@flow
 
 import React from 'react';
-import {View} from 'react-native';
+import {Animated, View} from 'react-native';
 import {squareSize} from '../animated-square/index.styles';
 import AnimatedSquare from '../animated-square';
-import TopLeftSquare from './top-left-square';
-import TopRightSquare from './top-right-square';
-import BottomLeftSquare from './bottom-left-square';
+import LogoSquare from './logo-square';
 
-type PropsT = {};
+type PropsT = {
+  onFinishAnimation?: Function,
+};
 
-const AnimatedLogo = ({}: PropsT) => {
+const AnimatedLogo = ({onFinishAnimation}: PropsT) => {
   const logoSize = squareSize * 3;
+
+  const animation = Animated.sequence([Animated.delay(5000)]).start(() => {
+    onFinishAnimation && onFinishAnimation();
+  });
 
   return (
     <View
@@ -22,12 +26,15 @@ const AnimatedLogo = ({}: PropsT) => {
         alignContent: 'center',
         justifyContent: 'center',
       }}>
-      <TopLeftSquare />
-      <TopRightSquare />
-      <AnimatedSquare style={{top: squareSize, left: squareSize}} />
-      <BottomLeftSquare />
+      <LogoSquare position="topLeft" />
+      <LogoSquare position="topRight" />
+      <LogoSquare position="bottomLeft" />
     </View>
   );
+};
+
+AnimatedLogo.defaultProps = {
+  onFinishAnimation: () => {},
 };
 
 export default AnimatedLogo;
