@@ -5,6 +5,9 @@ import React from 'react';
 import {View} from 'react-native';
 import {squareSize} from '../animated-square/index.styles';
 import AnimatedSquare from '../animated-square';
+import TopLeftSquare from './top-left-square';
+import TopRightSquare from './top-right-square';
+import BottomLeftSquare from './bottom-left-square';
 
 type PropsT = {};
 
@@ -19,10 +22,10 @@ const AnimatedLogo = ({}: PropsT) => {
         alignContent: 'center',
         justifyContent: 'center',
       }}>
-      <AnimatedSquare style={{top: 0, left: 0}} />
-      <AnimatedSquare style={{top: 0, right: 0}} />
+      <TopLeftSquare />
+      <TopRightSquare />
       <AnimatedSquare style={{top: squareSize, left: squareSize}} />
-      <AnimatedSquare style={{bottom: 0, left: 0}} />
+      <BottomLeftSquare />
     </View>
   );
 };
