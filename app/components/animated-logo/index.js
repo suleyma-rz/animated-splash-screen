@@ -4,7 +4,6 @@
 import React from 'react';
 import {Animated, View} from 'react-native';
 import {squareSize} from '../animated-square/index.styles';
-import AnimatedSquare from '../animated-square';
 import LogoSquare from './logo-square';
 
 type PropsT = {

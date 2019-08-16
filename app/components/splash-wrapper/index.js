@@ -2,11 +2,11 @@
 //@flow
 
 import React from 'react';
-import {View, Dimensions, Text, Animated} from 'react-native';
+import {View, StyleSheet, Animated, StatusBar} from 'react-native';
 import MaskedView from '@react-native-community/masked-view';
-import AnimatedLogo from '../../components/animated-logo';
 import SplashScreen from '../../screens/splash-screen-logo';
-import {squareSize} from '../animated-square/index.styles';
+import Colors from '../../styles/colors';
+import styles from './index.styles';
 
 type PropsT = {
   children: React.Node,
@@ -14,13 +14,6 @@ type PropsT = {
 
 type StateT = {
   shouldRenderSplash: boolean,
-};
-
-const absoluteFill = {
-  zIndex: 999,
-  position: 'absolute',
-  width: Dimensions.get('window').width,
-  height: Dimensions.get('window').height,
 };
 
 class SplashWrapper extends React.Component<PropsT, StateT> {
@@ -49,29 +42,19 @@ class SplashWrapper extends React.Component<PropsT, StateT> {
       extrapolate: 'clamp',
     });
 
-  animateBackgroundOpacity = () =>
-    this.scale.interpolate({
-      inputRange: [1, 100],
-      outputRange: [1, 0],
-      extrapolate: 'clamp',
-    });
-
   removeSplash = () => {
     this.setState({shouldRenderSplash: false});
+    StatusBar.setBarStyle('dark-content', true);
   };
 
-  /*<SplashScreen onFinish={this.removeSplash} />*/
   render() {
     return (
       <>
-        {/*This will be the animation*/}
         {this.state.shouldRenderSplash && (
           <Animated.View
             style={{
-              width: '100%',
-              height: '100%',
-              position: 'absolute',
-              backgroundColor: '#FFFFFF',
+              ...StyleSheet.absoluteFill,
+              backgroundColor: Colors.WHITE,
             }}>
             <SplashScreen onFinish={this.expandMask} />
           </Animated.View>
@@ -80,32 +63,18 @@ class SplashWrapper extends React.Component<PropsT, StateT> {
         <MaskedView
           style={{flex: 1}}
           maskElement={
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: 'transparent',
-              }}>
+            <View style={styles.maskContainer}>
               <Animated.View
-                style={{
-                  width: squareSize,
-                  height: squareSize,
-                  backgroundColor: 'black',
-                  transform: [{scale: this.scale}],
-                }}
+                style={{...styles.square, transform: [{scale: this.scale}]}}
               />
             </View>
           }>
-          {/* Shows behind the mask, you can put anything here, such as an image */}
           {this.props.children}
           {this.state.shouldRenderSplash && (
             <Animated.View
               style={{
-                width: '100%',
-                height: '100%',
-                position: 'absolute',
-                backgroundColor: '#FFFFFF',
+                ...StyleSheet.absoluteFill,
+                backgroundColor: Colors.WHITE,
                 opacity: this.animateOpacity(),
               }}
             />

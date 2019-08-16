@@ -4,6 +4,7 @@
 import React, {Fragment} from 'react';
 import {View, StatusBar} from 'react-native';
 import AnimatedLogo from '../../components/animated-logo';
+import Colors from '../../styles/colors';
 
 type PropsT = {
   onFinish: Function,
@@ -11,18 +12,15 @@ type PropsT = {
 
 const SplashScreenLogo = ({onFinish}: PropsT) => {
   return (
-    <Fragment>
-      <StatusBar barStyle="light-content" />
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: '#000000',
-        }}>
-        <AnimatedLogo onFinishAnimation={onFinish} />
-      </View>
-    </Fragment>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: Colors.BLACK,
+      }}>
+      <AnimatedLogo onFinishAnimation={onFinish} />
+    </View>
   );
 };
 

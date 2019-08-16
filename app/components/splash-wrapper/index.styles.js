@@ -7,8 +7,13 @@ const styles = StyleSheet.create({
   square: {
     width: squareSize,
     height: squareSize,
-    position: 'absolute',
-    backgroundColor: Colors.WHITE,
+    backgroundColor: Colors.BLACK,
+  },
+  maskContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
   },
 });
 
